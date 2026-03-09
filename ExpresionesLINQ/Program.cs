@@ -16,57 +16,59 @@ namespace ExpresionesLINQ
             Nombre = nombre;
             Nota = nota;
         }
-
     }
 
     internal class Program
     {
-        // Ejercicio 1 — LINQ
-        //
-        // Se tiene la siguiente lista de estudiantes:
-
-        List<Estudiante> estudiantes = new List<Estudiante>()
+      
+        static List<Estudiante> estudiantes = new List<Estudiante>()
         {
-            new Estudiante("Carlos", 85),
-            new Estudiante("Ana", 95),
-            new Estudiante("Luis", 70),
-            new Estudiante("Maria", 90),
-            new Estudiante("Pedro", 60)
+            new Estudiante("David", 85),
+            new Estudiante("Ludy", 95),
+            new Estudiante("Susana", 70),
+            new Estudiante("Yeyson", 90),
+            new Estudiante("Heriberto", 60)
         };
 
-        /*
-        Problema
-        Utilizando LINQ, realizar lo siguiente:
-
-        ⚫ Mostrar únicamente los estudiantes que tengan nota mayor o igual a 80.
-        ⚫ Ordenar los resultados de mayor a menor nota.
-        ⚫ Mostrar el resultado en consola con el siguiente formato
-         
-         */
-
-
-        // Ejercicio 2 — Expresiones Lambda
-        //
-        // Se tiene la siguiente lista de números:
-
-        List<int> numeros = new List<int>()
+        static List<int> numeros = new List<int>()
         {
             3, 10, 25, 7, 18, 40, 2, 30
         };
 
-        /*
-         
-        Problema
-        Utilizando expresiones Lambda, realizar lo siguiente:
-
-        ⚫ Obtener todos los números mayores que 15.
-        ⚫ Calcular la suma de esos números.
-        ⚫ Mostrar los resultados en consola
-         
-         */
-
+       
         static void Main(string[] args)
         {
+            // --- EJERCICIO 1: LINQ ---
+            Console.WriteLine("--- Estudiantes Sobresalientes ---");
+
+            var EstudiantesSobresalientess = from e in estudiantes
+                                        where e.Nota >= 80
+                                        orderby e.Nota descending
+                                        select e;
+
+            foreach (var est in EstudiantesSobresalientess)
+            {
+                Console.WriteLine($"Nombre: {est.Nombre} - Nota: {est.Nota}");
+            }
+
+
+            // --- EJERCICIO 2: LAMBDA ---
+            Console.WriteLine("\n--- Numeros Mayores a 15 ---");
+
+            var NumerosMayores = numeros.Where(n => n > 15).ToList();
+            int suma = NumerosMayores.Sum();
+
+            foreach (var num in NumerosMayores)
+            {
+                Console.WriteLine($"- {num}");
+            }
+
+            Console.WriteLine($"\nLa suma total de esos números es: {suma}");
+
+
+            // --- PAUSA FINAL ---
+            Console.WriteLine("\nPresiona Enter para finalizar...");
+            Console.ReadLine();
         }
     }
 }
